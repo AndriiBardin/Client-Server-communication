@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <main>
+        <h1>WORD FLIPPER SSE</h1>
+
+        <h2><span id='word'>
+                click START to get word
+            </span></h2>
+
+        <button onclick="clickFunction()">START</button>
+
+        <script>
+            let eventSourse 
+
+            function clickFunction() {
+                if (typeof eventSourse !== 'undefined' && eventSourse.OPEN) {
+                    eventSourse.close()
+                    eventSourse = new EventSource("http://localhost:8080/stream");
+                } else {
+                    eventSourse = new EventSource("http://localhost:8080/stream");
+                }
+                const wordElement = document.getElementById("word");
+                eventSourse.onmessage = (message) => {
+                    wordElement.innerText = `${message.lastEventId}, ${message.data}`;
+                }
+            }
+        </script>
+    </main>
+</body>
+
+</html>
