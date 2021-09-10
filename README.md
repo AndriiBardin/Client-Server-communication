@@ -1,4 +1,4 @@
-Simple client and server communication app.
+Simple client and server communication apps.
 
 ## Getting Started
 
